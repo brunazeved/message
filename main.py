@@ -1,21 +1,20 @@
 import pandas as pd
 from twilio.rest import Client
-# Minha conta SID
-account_sid = "sid acc code"
-# Meu Auth Token
-auth_token  = "auth token code"
-client = Client(account_sid, auth_token)
 
-lmeses = ['janeiro', 'fevereiro', 'março', 'abril', 'maio', 'junho']
+accSid = "ur sid acc code"
+auth_token  = "ur auth token code"
+client = Client(accSid, auth_token)
 
-for mes in lmeses:
-    tabela_vendas = pd.read_excel(f'{mes}.xlsx')
-    if (tabela_vendas['Vendas'] > 55000).any():
-        vendedor = tabela_vendas.loc[tabela_vendas['Vendas'] > 55000, 'Vendedor'].values[0]
-        vendas = tabela_vendas.loc[tabela_vendas['Vendas'] > 55000, 'Vendas'].values[0]
-        print(f'No mês {mes} alguém bateu a meta. Vendedor:{vendedor} - Vendas:{vendas}')
+lmonths = ['jan', 'feb', 'mar', 'apr', 'may', 'jun']
+
+for month in lmonths:
+    sales_table = pd.read_excel(f'{month}.xlsx')
+    if (sales_table['Vendas'] > 55000).any():
+        saller = sales_table.loc[sales_table['Vendas'] > 55000, 'Vendedor'].values[0]
+        sales = sales_table.loc[sales_table['Vendas'] > 55000, 'Vendas'].values[0]
+        print(f'No mês de {month} alguém bateu a meta. Vendedor:{saller} - Vendas:{sales}')
         message = client.messages.create(
-                    to="+5551984886296",
-                    from_="+17406854437",
-                    body=f"No mês {mes} alguém bateu a meta. Vendedor:{vendedor} - Vendas:{vendas}")
+                    to="number wt area code",
+                    from_="ur code here",
+                    body=f"No mês de {month} alguém bateu a meta. Vendedor:{saller} - Vendas:{sales}")
         print(message.sid)
